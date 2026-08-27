@@ -37,7 +37,7 @@
             font-size: 16px;
         }
 
-        h1, h2, h3, h4, .logo, .btn, .day-header {
+        h1, h2, h3, h4, .logo-text, .btn, .day-header {
             font-family: 'Outfit', sans-serif;
         }
 
@@ -102,6 +102,54 @@
             50% { transform: scale(1.06); }
         }
 
+        /* ========== LOGO ========== */
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.6rem;
+        }
+
+        .logo-img {
+            height: 48px;              /* ← Cambia el tamaño del logo en el HEADER aquí */
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-logo .logo-img {
+            height: 60px;              /* ← Cambia el tamaño del logo en el FOOTER aquí */
+            max-width: 200px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Texto de respaldo si no hay imagen (opcional) */
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--gradient);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s ease infinite;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .logo-text span {
+            font-weight: 400;
+            font-size: 0.8rem;
+            display: block;
+            letter-spacing: 3px;
+            opacity: 0.75;
+        }
+
         /* Header */
         header {
             position: fixed;
@@ -116,36 +164,15 @@
         nav {
             max-width: 1140px;
             margin: 0 auto;
-            padding: 1.1rem 1.5rem;
+            padding: 0.9rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.7rem;
-            font-weight: 800;
-            background: var(--gradient);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientMove 5s ease infinite;
-            letter-spacing: -0.5px;
-            line-height: 1.1;
-        }
-
-        .logo span {
-            font-weight: 400;
-            font-size: 0.85rem;
-            display: block;
-            letter-spacing: 3px;
-            opacity: 0.75;
-        }
-
         .nav-links {
             display: flex;
-            gap: 1.8rem;
+            gap: 1.6rem;
             list-style: none;
         }
 
@@ -153,7 +180,7 @@
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             position: relative;
             transition: color 0.3s;
         }
@@ -473,7 +500,7 @@
             font-weight: 400;
         }
 
-        /* ========== LOCUTORES ========== */
+        /* Locutores */
         .hosts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -494,9 +521,7 @@
         .host-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 4px;
             background: var(--gradient);
             opacity: 0;
@@ -509,9 +534,7 @@
             box-shadow: 0 22px 50px rgba(123, 44, 191, 0.25);
         }
 
-        .host-card:hover::before {
-            opacity: 1;
-        }
+        .host-card:hover::before { opacity: 1; }
 
         .host-avatar {
             width: 100px;
@@ -536,7 +559,6 @@
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.35rem;
-            letter-spacing: -0.02em;
         }
 
         .host-role {
@@ -548,7 +570,6 @@
             padding: 0.3rem 0.85rem;
             border-radius: 50px;
             margin-bottom: 1rem;
-            letter-spacing: 0.03em;
         }
 
         .host-schedule {
@@ -595,7 +616,6 @@
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             padding: 2.2rem;
-            backdrop-filter: blur(12px);
             transition: var(--transition);
         }
 
@@ -714,12 +734,8 @@
             transition: opacity 0.35s;
         }
 
-        .social-btn:hover {
-            transform: translateY(-8px) scale(1.08);
-        }
-
+        .social-btn:hover { transform: translateY(-8px) scale(1.08); }
         .social-btn:hover::before { opacity: 1; }
-
         .social-btn i { position: relative; z-index: 1; }
 
         .facebook { background: #1877f2; }
@@ -745,11 +761,6 @@
             margin-bottom: 3rem;
         }
 
-        .footer-brand .logo {
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-
         .footer-brand p {
             color: var(--text-muted);
             font-size: 0.95rem;
@@ -763,7 +774,6 @@
         }
 
         .footer-col ul { list-style: none; }
-
         .footer-col li { margin-bottom: 0.7rem; }
 
         .footer-col a {
@@ -824,6 +834,9 @@
             .volume-control { justify-content: center; }
             .footer-content { grid-template-columns: 1fr; gap: 2.2rem; }
             .footer-bottom { flex-direction: column; text-align: center; }
+
+            .logo-img { height: 40px; }
+            .footer-logo .logo-img { height: 50px; }
         }
     </style>
 </head>
@@ -835,12 +848,24 @@
         <div class="orb orb-3"></div>
     </div>
 
+    <!-- ========== HEADER CON LOGO ========== -->
     <header>
         <nav>
-            <div class="logo">
-                GALY 90.7
-                <span>FM</span>
-            </div>
+            <!-- 
+                CAMBIA "logo.png" por el nombre de tu archivo de logo.
+                Ejemplo: logo.png, galy-logo.svg, logo-galy.png
+                Sube el archivo a la raíz del repositorio en GitHub.
+            -->
+            <a href="#inicio" class="logo-link">
+                <img src="logo.png" alt="Galy 90.7 FM" class="logo-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <!-- Texto de respaldo si la imagen no carga -->
+                <div class="logo-text" style="display:none;">
+                    GALY 90.7
+                    <span>FM</span>
+                </div>
+            </a>
+
             <ul class="nav-links" id="navLinks">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#player">Escuchar</a></li>
@@ -988,29 +1013,24 @@
         </div>
     </section>
 
-    <!-- ========== SECCIÓN LOCUTORES ========== -->
     <section id="locutores">
         <h2 class="section-title">Nuestros Locutores</h2>
         <p class="section-subtitle">Las voces que te acompañan todos los días en Galy 90.7</p>
-
         <div class="hosts-grid">
-            <!-- Locutor 1 - Cambia los nombres y datos por los reales -->
             <div class="host-card">
-                <div class="host-avatar">CR</div>
+                <div class="host-avatar">FM</div>
                 <h3>Fernando Mejia</h3>
                 <span class="host-role">Mañanas</span>
                 <p class="host-schedule"><i class="fas fa-clock"></i> Lun - Vie · 06:00 a 09:00</p>
                 <p class="host-bio">Despierta la ciudad con noticias, buena música y la mejor energía para empezar el día.</p>
             </div>
-
             <div class="host-card">
-                <div class="host-avatar">LM</div>
+                <div class="host-avatar">GT</div>
                 <h3>Gaby Torres</h3>
                 <span class="host-role">Mediodía</span>
                 <p class="host-schedule"><i class="fas fa-clock"></i> Lun - Vie · 09:00 a 14:00</p>
                 <p class="host-bio">Salsa, merengue y los éxitos del momento para acompañarte en tu jornada.</p>
             </div>
-
             <div class="host-card">
                 <div class="host-avatar">JR</div>
                 <h3>José Ramírez</h3>
@@ -1018,7 +1038,6 @@
                 <p class="host-schedule"><i class="fas fa-clock"></i> Lun - Vie · 14:00 a 20:00</p>
                 <p class="host-bio">Entrevistas, requests y la mejor selección musical para el regreso a casa.</p>
             </div>
-
             <div class="host-card">
                 <div class="host-avatar">AP</div>
                 <h3>Ana Pérez</h3>
@@ -1056,7 +1075,7 @@
         <h2 class="section-title">Envíanos un mensaje</h2>
         <p class="section-subtitle" style="margin-bottom: 0;">Elige una opción y se abrirá WhatsApp con el mensaje listo.</p>
         <div class="whatsapp-buttons">
-            <a href="https://wa.me/+52 1 722 3964 221?text=¡Hola%20Galy%2090.7!%20Quiero%20enviar%20un%20saludo%20❤️" class="wa-btn" target="_blank">
+            <a href="https://wa.me/+52 1 722 396 4221?text=¡Hola%20Galy%2090.7!%20Quiero%20enviar%20un%20saludo%20❤️" class="wa-btn" target="_blank">
                 <i class="fab fa-whatsapp"></i> Enviar un saludo
             </a>
             <a href="https://wa.me/+52 1 722 396 4221?text=¡Hola!%20Quiero%20pedir%20una%20canción%20🎵" class="wa-btn" target="_blank">
@@ -1065,7 +1084,7 @@
             <a href="https://wa.me/+52 1 722 396 4221?text=Hola%20Galy%2090.7,%20quiero%20dar%20una%20información%20o%20noticia%20📰" class="wa-btn" target="_blank">
                 <i class="fas fa-newspaper"></i> Enviar información
             </a>
-            <a href="https://wa.me/+52 1 722 396 4221Act?text=¡Hola!%20Tengo%20una%20consulta%20o%20sugerencia%20para%20la%20radio%20💬" class="wa-btn" target="_blank">
+            <a href="https://wa.me/+52 1 722 396 4221?text=¡Hola!%20Tengo%20una%20consulta%20o%20sugerencia%20para%20la%20radio%20💬" class="wa-btn" target="_blank">
                 <i class="fas fa-comment-dots"></i> Consulta / Sugerencia
             </a>
         </div>
@@ -1083,10 +1102,22 @@
         </div>
     </section>
 
+    <!-- ========== FOOTER CON LOGO ========== -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <div class="logo">GALY 90.7 <span style="font-size: 0.85rem;">FM</span></div>
+                <!-- 
+                    Mismo archivo de logo que en el header.
+                    Cambia "logo.png" si usas otro nombre.
+                -->
+                <a href="#inicio" class="logo-link footer-logo">
+                    <img src="logo.png" alt="Galy 90.7 FM" class="logo-img"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="logo-text" style="display:none;">
+                        GALY 90.7
+                        <span>FM</span>
+                    </div>
+                </a>
                 <p>La radio que te acompaña las 24 horas con la mejor música, noticias y conexión con nuestra comunidad.</p>
             </div>
             <div class="footer-col">
@@ -1109,7 +1140,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Galy 90.7 FM · Todos los derechos reservados Created By Kevin, Pagina en Proceso</p>
+            <p>© 2026 Galy 90.7 FM · Todos los derechos reservados</p>
             <p>Hecha con ❤️ para nuestra audiencia</p>
         </div>
     </footer>
