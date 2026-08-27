@@ -4,46 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galy 90.7 FM | La Radio que te Acompaña</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ========== RESET Y VARIABLES ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary: #7b2cbf;
             --secondary: #ff006e;
             --accent: #ffbe0b;
-            --dark: #10002b;
-            --light: #f8f9fa;
+            --dark: #0a0018;
+            --glass: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #f1f1f5;
+            --text-muted: rgba(255, 255, 255, 0.65);
             --gradient: linear-gradient(135deg, #7b2cbf, #ff006e, #ffbe0b);
-            --glass: rgba(255, 255, 255, 0.08);
+            --radius: 20px;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             background: var(--dark);
-            color: white;
-            line-height: 1.6;
+            color: var(--text);
+            line-height: 1.7;
             overflow-x: hidden;
+            font-size: 16px;
         }
 
-        /* ========== ANIMACIONES ========== */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        h1, h2, h3, h4, .logo, .btn, .day-header {
+            font-family: 'Outfit', sans-serif;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.85; }
+        /* Fondo animado */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 140%;
+            height: 140%;
+            top: -20%;
+            left: -20%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(123, 44, 191, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 110, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(255, 190, 11, 0.12) 0%, transparent 45%);
+            animation: bgMove 18s ease-in-out infinite alternate;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: floatOrb 12s ease-in-out infinite;
+        }
+
+        .orb-1 { width: 420px; height: 420px; background: #7b2cbf; top: -100px; right: -80px; }
+        .orb-2 { width: 320px; height: 320px; background: #ff006e; bottom: 10%; left: -100px; animation-delay: -4s; }
+        .orb-3 { width: 250px; height: 250px; background: #ffbe0b; top: 45%; right: 15%; opacity: 0.2; animation-delay: -8s; }
+
+        @keyframes bgMove {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-3%, 2%) scale(1.05); }
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -40px); }
         }
 
         @keyframes gradientMove {
@@ -53,54 +93,54 @@
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes equalizer {
-            0% { height: 8px; }
-            50% { height: 28px; }
-            100% { height: 8px; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
         }
 
-        /* ========== HEADER / NAV ========== */
+        /* Header */
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(16, 0, 43, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 0, 24, 0.75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         nav {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 1rem 1.5rem;
+            padding: 1.1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 800;
             background: var(--gradient);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientMove 4s ease infinite;
-            letter-spacing: -1px;
+            animation: gradientMove 5s ease infinite;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
         }
 
         .logo span {
             font-weight: 400;
-            font-size: 1rem;
+            font-size: 0.85rem;
             display: block;
-            letter-spacing: 2px;
-            opacity: 0.8;
+            letter-spacing: 3px;
+            opacity: 0.75;
         }
 
         .nav-links {
@@ -110,96 +150,74 @@
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
             position: relative;
             transition: color 0.3s;
-            font-size: 0.95rem;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
             background: var(--secondary);
-            transition: width 0.3s;
+            transition: width 0.3s ease;
+            border-radius: 2px;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
 
         .menu-toggle {
             display: none;
             background: none;
             border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             cursor: pointer;
         }
 
-        /* ========== HERO ========== */
+        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
-            padding: 7rem 1.5rem 4rem;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(123, 44, 191, 0.4) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 110, 0.3) 0%, transparent 40%),
-                var(--dark);
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--gradient);
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.25;
-            animation: float 8s ease-in-out infinite;
-            top: -100px;
-            right: -100px;
+            padding: 8rem 1.5rem 5rem;
         }
 
         .hero-content {
-            max-width: 800px;
-            z-index: 2;
-            animation: slideUp 1s ease forwards;
+            max-width: 780px;
+            animation: slideUp 0.9s ease forwards;
         }
 
         .hero h1 {
-            font-size: clamp(2.8rem, 8vw, 5rem);
+            font-size: clamp(3rem, 9vw, 5.2rem);
             font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1rem;
+            line-height: 1.05;
+            margin-bottom: 1.2rem;
             background: var(--gradient);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientMove 5s ease infinite;
+            animation: gradientMove 6s ease infinite;
+            letter-spacing: -1.5px;
         }
 
         .hero .tagline {
-            font-size: 1.25rem;
-            opacity: 0.9;
-            margin-bottom: 2.5rem;
-            font-weight: 300;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2.8rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-buttons {
@@ -213,11 +231,11 @@
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 1rem 2rem;
+            padding: 1rem 2.1rem;
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             border: none;
             cursor: pointer;
             font-size: 1rem;
@@ -227,31 +245,31 @@
             background: var(--gradient);
             background-size: 200% 200%;
             color: white;
-            animation: gradientMove 4s ease infinite;
-            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+            animation: gradientMove 5s ease infinite;
+            box-shadow: 0 12px 35px rgba(255, 0, 110, 0.35);
         }
 
         .btn-primary:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 0, 110, 0.6);
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 18px 45px rgba(255, 0, 110, 0.5);
         }
 
         .btn-secondary {
             background: var(--glass);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
             transform: translateY(-4px);
         }
 
-        /* ========== REPRODUCTOR ========== */
+        /* Reproductor */
         .player-section {
-            max-width: 700px;
-            margin: -60px auto 0;
+            max-width: 680px;
+            margin: -50px auto 0;
             padding: 0 1.5rem;
             position: relative;
             z-index: 10;
@@ -259,22 +277,28 @@
 
         .player-card {
             background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 1.8rem 2rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
             gap: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
+            transition: var(--transition);
+        }
+
+        .player-card:hover {
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 25px 60px rgba(123, 44, 191, 0.2);
         }
 
         .player-info {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.1rem;
             flex: 1;
             min-width: 200px;
         }
@@ -283,62 +307,59 @@
             display: flex;
             align-items: flex-end;
             gap: 4px;
-            height: 32px;
+            height: 36px;
         }
 
         .equalizer span {
             width: 5px;
             background: var(--gradient);
             border-radius: 3px;
-            animation: equalizer 1.2s ease-in-out infinite;
+            height: 6px;
+            transition: height 0.08s ease;
+            min-height: 4px;
         }
-
-        .equalizer span:nth-child(1) { animation-delay: 0.1s; height: 12px; }
-        .equalizer span:nth-child(2) { animation-delay: 0.3s; height: 22px; }
-        .equalizer span:nth-child(3) { animation-delay: 0.5s; height: 16px; }
-        .equalizer span:nth-child(4) { animation-delay: 0.2s; height: 28px; }
-        .equalizer span:nth-child(5) { animation-delay: 0.4s; height: 10px; }
 
         .player-text h3 {
             font-size: 1.15rem;
-            margin-bottom: 0.2rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
         }
 
         .player-text p {
             font-size: 0.9rem;
-            opacity: 0.75;
+            color: var(--text-muted);
         }
 
         .player-controls {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.1rem;
         }
 
         .play-btn {
-            width: 60px;
-            height: 60px;
+            width: 62px;
+            height: 62px;
             border-radius: 50%;
             background: var(--gradient);
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 0, 110, 0.4);
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
         }
 
         .play-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 35px rgba(255, 0, 110, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 14px 40px rgba(255, 0, 110, 0.55);
         }
 
-        audio {
-            display: none;
-        }
+        .play-btn.playing { animation: pulse 1.8s ease infinite; }
+
+        audio { display: none; }
 
         .volume-control {
             display: flex;
@@ -351,150 +372,285 @@
             accent-color: var(--secondary);
         }
 
-        /* ========== SECCIONES GENERALES ========== */
+        /* Secciones */
         section {
-            padding: 5rem 1.5rem;
-            max-width: 1200px;
+            padding: 5.5rem 1.5rem;
+            max-width: 1140px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            margin-bottom: 3rem;
-            position: relative;
+            font-size: clamp(2rem, 4.5vw, 2.7rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 80px;
+            width: 70px;
             height: 4px;
             background: var(--gradient);
-            margin: 0.8rem auto 0;
-            border-radius: 2px;
+            margin: 0.9rem auto 0;
+            border-radius: 4px;
         }
 
-        /* ========== PROGRAMACIÓN ========== */
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.05rem;
+        }
+
+        /* Programación */
         .schedule-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 1.6rem;
         }
 
         .day-card {
             background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition);
         }
 
         .day-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(123, 44, 191, 0.25);
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 20px 45px rgba(123, 44, 191, 0.22);
         }
 
         .day-header {
             background: var(--gradient);
             background-size: 200% 200%;
-            animation: gradientMove 6s ease infinite;
-            padding: 1rem 1.3rem;
+            animation: gradientMove 7s ease infinite;
+            padding: 1.1rem 1.4rem;
             font-weight: 700;
             font-size: 1.15rem;
             text-align: center;
         }
 
-        .program-list {
-            padding: 1.2rem 1.3rem;
-        }
+        .program-list { padding: 1.3rem 1.4rem; }
 
         .program-item {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 0.7rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             gap: 1rem;
         }
 
-        .program-item:last-child {
-            border-bottom: none;
-        }
+        .program-item:last-child { border-bottom: none; }
 
         .program-time {
             font-weight: 600;
             color: var(--accent);
             white-space: nowrap;
-            font-size: 0.9rem;
-            min-width: 90px;
+            font-size: 0.88rem;
+            min-width: 95px;
         }
 
         .program-name {
             flex: 1;
             font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .program-name small {
             display: block;
-            opacity: 0.65;
+            color: var(--text-muted);
             font-size: 0.8rem;
-            margin-top: 2px;
+            margin-top: 3px;
+            font-weight: 400;
         }
 
-        /* ========== SOBRE NOSOTROS ========== */
+        /* ========== LOCUTORES ========== */
+        .hosts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .host-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 2rem 1.6rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .host-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .host-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 22px 50px rgba(123, 44, 191, 0.25);
+        }
+
+        .host-card:hover::before {
+            opacity: 1;
+        }
+
+        .host-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            color: white;
+            background: var(--gradient);
+            background-size: 200% 200%;
+            animation: gradientMove 6s ease infinite;
+            box-shadow: 0 10px 30px rgba(123, 44, 191, 0.4);
+            letter-spacing: -1px;
+        }
+
+        .host-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.02em;
+        }
+
+        .host-role {
+            display: inline-block;
+            background: rgba(255, 190, 11, 0.15);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.85rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.03em;
+        }
+
+        .host-schedule {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .host-schedule i {
+            color: var(--secondary);
+            margin-right: 6px;
+            font-size: 0.85rem;
+        }
+
+        .host-bio {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Sobre nosotros */
         .about {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 3.5rem;
             align-items: center;
         }
 
         .about-text h3 {
             color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
+            margin-bottom: 1.1rem;
+            font-size: 1.35rem;
+            font-weight: 700;
         }
 
         .about-text p {
-            margin-bottom: 1.2rem;
-            opacity: 0.9;
+            margin-bottom: 1.3rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
         }
 
         .about-card {
             background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            animation: float 6s ease-in-out infinite;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 2.2rem;
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+        }
+
+        .about-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 18px 40px rgba(123, 44, 191, 0.2);
         }
 
         .about-card i {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 1.1rem;
         }
 
-        /* ========== WHATSAPP ========== */
+        .about-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .about-card ul { list-style: none; }
+
+        .about-card li {
+            margin-bottom: 0.7rem;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        .about-card li i {
+            font-size: 0.9rem;
+            margin-right: 10px;
+            -webkit-text-fill-color: var(--accent);
+            background: none;
+        }
+
+        /* WhatsApp */
         .whatsapp-section {
-            background: linear-gradient(135deg, rgba(123, 44, 191, 0.2), rgba(255, 0, 110, 0.15));
-            border-radius: 30px;
-            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(123, 44, 191, 0.18), rgba(255, 0, 110, 0.12));
+            border-radius: 28px;
+            padding: 3.5rem 2rem;
             text-align: center;
-            margin: 2rem 1.5rem;
+            margin: 2rem 1.5rem 0;
             max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
         }
 
         .whatsapp-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 1.2rem;
             margin-top: 2.5rem;
         }
@@ -502,52 +658,49 @@
         .wa-btn {
             background: #25D366;
             color: white;
-            padding: 1.2rem 1.5rem;
+            padding: 1.15rem 1.4rem;
             border-radius: 16px;
             text-decoration: none;
             font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+            gap: 0.7rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 28px rgba(37, 211, 102, 0.3);
+            font-size: 0.98rem;
         }
 
         .wa-btn:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
-            background: #20ba5a;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(37, 211, 102, 0.45);
+            background: #1fb855;
         }
 
-        .wa-btn i {
-            font-size: 1.5rem;
-        }
+        .wa-btn i { font-size: 1.35rem; }
 
-        /* ========== REDES SOCIALES ========== */
-        .social-section {
-            text-align: center;
-        }
+        /* Redes */
+        .social-section { text-align: center; }
 
         .social-grid {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1.3rem;
             flex-wrap: wrap;
-            margin-top: 2rem;
+            margin-top: 2.2rem;
         }
 
         .social-btn {
-            width: 70px;
-            height: 70px;
+            width: 68px;
+            height: 68px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             color: white;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
@@ -558,48 +711,89 @@
             inset: 0;
             background: var(--gradient);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.35s;
         }
 
         .social-btn:hover {
-            transform: translateY(-8px) scale(1.1);
+            transform: translateY(-8px) scale(1.08);
         }
 
-        .social-btn:hover::before {
-            opacity: 1;
-        }
+        .social-btn:hover::before { opacity: 1; }
 
-        .social-btn i {
-            position: relative;
-            z-index: 1;
-        }
+        .social-btn i { position: relative; z-index: 1; }
 
         .facebook { background: #1877f2; }
         .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .youtube { background: #ff0000; }
-        .tiktok { background: #000; }
+        .tiktok { background: #111; }
         .twitter { background: #1da1f2; }
 
-        /* ========== FOOTER ========== */
+        /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 3rem 1.5rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 4rem;
+            background: rgba(0, 0, 0, 0.45);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 5rem;
+            padding: 4rem 1.5rem 2rem;
         }
 
-        footer .logo {
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
             margin-bottom: 1rem;
             display: inline-block;
         }
 
-        footer p {
-            opacity: 0.7;
-            margin-top: 1rem;
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 280px;
         }
 
-        /* ========== RESPONSIVE ========== */
+        .footer-col h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul { list-style: none; }
+
+        .footer-col li { margin-bottom: 0.7rem; }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding-top: 1.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -607,52 +801,40 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: rgba(16, 0, 43, 0.98);
+                background: rgba(10, 0, 24, 0.97);
                 flex-direction: column;
                 padding: 1.5rem;
                 gap: 1.2rem;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid var(--glass-border);
             }
 
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .about {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                padding-top: 7rem;
-            }
-
-            .whatsapp-buttons {
-                grid-template-columns: 1fr;
-            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .about { grid-template-columns: 1fr; gap: 2.5rem; }
+            .hero { padding-top: 7.5rem; }
+            .whatsapp-buttons { grid-template-columns: 1fr; }
 
             .player-card {
                 flex-direction: column;
                 text-align: center;
-                gap: 1.2rem;
+                gap: 1.3rem;
             }
 
-            .player-info {
-                justify-content: center;
-            }
-
-            .volume-control {
-                justify-content: center;
-            }
+            .player-info { justify-content: center; }
+            .volume-control { justify-content: center; }
+            .footer-content { grid-template-columns: 1fr; gap: 2.2rem; }
+            .footer-bottom { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
     <header>
         <nav>
             <div class="logo">
@@ -663,6 +845,7 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#player">Escuchar</a></li>
                 <li><a href="#programacion">Programación</a></li>
+                <li><a href="#locutores">Locutores</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#whatsapp">Saludos</a></li>
                 <li><a href="#redes">Redes</a></li>
@@ -673,7 +856,6 @@
         </nav>
     </header>
 
-    <!-- HERO -->
     <section class="hero" id="inicio">
         <div class="hero-content">
             <h1>Galy 90.7 FM</h1>
@@ -689,347 +871,337 @@
         </div>
     </section>
 
-    <!-- REPRODUCTOR DE AUDIO -->
     <div class="player-section" id="player">
         <div class="player-card">
             <div class="player-info">
                 <div class="equalizer" id="equalizer">
-                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
                 </div>
                 <div class="player-text">
                     <h3>Galy 90.7 FM en vivo</h3>
                     <p id="statusText">Pulsa play para escuchar</p>
                 </div>
             </div>
-
             <div class="player-controls">
                 <button class="play-btn" id="playBtn" title="Reproducir / Pausar">
                     <i class="fas fa-play" id="playIcon"></i>
                 </button>
-
                 <div class="volume-control">
-                    <i class="fas fa-volume-up"></i>
-                    <input type="range" id="volume" min="0" max="1" step="0.05" value="0.8">
+                    <i class="fas fa-volume-up" id="volumeIcon"></i>
+                    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8">
                 </div>
             </div>
-
-            <!-- 
-                IMPORTANTE: Cambia la URL del stream por la real de tu radio.
-                Ejemplo: https://stream.tuemisor.com/live
-            -->
-            <audio id="radioStream" preload="none">
+            <audio id="radioStream" crossorigin="anonymous" preload="none">
                 <source src="https://stream.example.com/galy907" type="audio/mpeg">
-                Tu navegador no soporta el elemento de audio.
             </audio>
         </div>
     </div>
 
-    <!-- PROGRAMACIÓN -->
     <section id="programacion">
         <h2 class="section-title">Programación</h2>
-        <p style="text-align: center; opacity: 0.8; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-            Conoce nuestra parrilla de programación. Horarios sujetos a cambios.
-        </p>
-
+        <p class="section-subtitle">Conoce nuestra parrilla. Horarios sujetos a cambios.</p>
         <div class="schedule-grid">
-            <!-- Lunes a Viernes -->
             <div class="day-card">
                 <div class="day-header">Lunes a Viernes</div>
                 <div class="program-list">
                     <div class="program-item">
                         <span class="program-time">06:00 - 09:00</span>
-                        <div class="program-name">
-                            Despertar con Galy
-                            <small>Noticias + Música</small>
-                        </div>
+                        <div class="program-name">Despertar con Galy<small>Noticias + Música</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">09:00 - 12:00</span>
-                        <div class="program-name">
-                            Mañana Latina
-                            <small>Salsa, Merengue y más</small>
-                        </div>
+                        <div class="program-name">Mañana Latina<small>Salsa, Merengue y más</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">12:00 - 14:00</span>
-                        <div class="program-name">
-                            Almuerzo Musical
-                            <small>Éxitos del momento</small>
-                        </div>
+                        <div class="program-name">Almuerzo Musical<small>Éxitos del momento</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">14:00 - 17:00</span>
-                        <div class="program-name">
-                            Tarde de Variedad
-                            <small>Entrevistas y requests</small>
-                        </div>
+                        <div class="program-name">Tarde de Variedad<small>Entrevistas y requests</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">17:00 - 20:00</span>
-                        <div class="program-name">
-                            Drive Time
-                            <small>Lo mejor para regresar a casa</small>
-                        </div>
+                        <div class="program-name">Drive Time<small>Lo mejor para regresar a casa</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">20:00 - 00:00</span>
-                        <div class="program-name">
-                            Noche Galy
-                            <small>Música y dedicaciones</small>
-                        </div>
+                        <div class="program-name">Noche Galy<small>Música y dedicaciones</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">00:00 - 06:00</span>
-                        <div class="program-name">
-                            Madrugada 24/7
-                            <small>Música continua</small>
-                        </div>
+                        <div class="program-name">Madrugada 24/7<small>Música continua</small></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Sábado -->
             <div class="day-card">
                 <div class="day-header">Sábado</div>
                 <div class="program-list">
                     <div class="program-item">
                         <span class="program-time">07:00 - 10:00</span>
-                        <div class="program-name">
-                            Sábado Alegre
-                            <small>Música tropical</small>
-                        </div>
+                        <div class="program-name">Sábado Alegre<small>Música tropical</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">10:00 - 14:00</span>
-                        <div class="program-name">
-                            Fin de Semana Galy
-                            <small>Lo mejor de la semana</small>
-                        </div>
+                        <div class="program-name">Fin de Semana Galy<small>Lo mejor de la semana</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">14:00 - 18:00</span>
-                        <div class="program-name">
-                            Fiesta Latina
-                            <small>Salsa, Merengue, Bachata</small>
-                        </div>
+                        <div class="program-name">Fiesta Latina<small>Salsa, Merengue, Bachata</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">18:00 - 00:00</span>
-                        <div class="program-name">
-                            Noche de Party
-                            <small>Para bailar toda la noche</small>
-                        </div>
+                        <div class="program-name">Noche de Party<small>Para bailar toda la noche</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">00:00 - 07:00</span>
-                        <div class="program-name">
-                            Madrugada Musical
-                            <small>Música sin interrupciones</small>
-                        </div>
+                        <div class="program-name">Madrugada Musical<small>Música sin interrupciones</small></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Domingo -->
             <div class="day-card">
                 <div class="day-header">Domingo</div>
                 <div class="program-list">
                     <div class="program-item">
                         <span class="program-time">08:00 - 12:00</span>
-                        <div class="program-name">
-                            Domingo Familiar
-                            <small>Música para toda la familia</small>
-                        </div>
+                        <div class="program-name">Domingo Familiar<small>Música para toda la familia</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">12:00 - 16:00</span>
-                        <div class="program-name">
-                            Clásicos del Recuerdo
-                            <small>Los mejores hits de siempre</small>
-                        </div>
+                        <div class="program-name">Clásicos del Recuerdo<small>Los mejores hits de siempre</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">16:00 - 20:00</span>
-                        <div class="program-name">
-                            Tarde Dominical
-                            <small>Variedad y requests</small>
-                        </div>
+                        <div class="program-name">Tarde Dominical<small>Variedad y requests</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">20:00 - 00:00</span>
-                        <div class="program-name">
-                            Cierre de Semana
-                            <small>Música y relajación</small>
-                        </div>
+                        <div class="program-name">Cierre de Semana<small>Música y relajación</small></div>
                     </div>
                     <div class="program-item">
                         <span class="program-time">00:00 - 08:00</span>
-                        <div class="program-name">
-                            Noche Continua
-                            <small>Música 24 horas</small>
-                        </div>
+                        <div class="program-name">Noche Continua<small>Música 24 horas</small></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SOBRE NOSOTROS -->
+    <!-- ========== SECCIÓN LOCUTORES ========== -->
+    <section id="locutores">
+        <h2 class="section-title">Nuestros Locutores</h2>
+        <p class="section-subtitle">Las voces que te acompañan todos los días en Galy 90.7</p>
+
+        <div class="hosts-grid">
+            <!-- Locutor 1 - Cambia los nombres y datos por los reales -->
+            <div class="host-card">
+                <div class="host-avatar">CR</div>
+                <h3>Carlos Rivera</h3>
+                <span class="host-role">Mañanas</span>
+                <p class="host-schedule"><i class="fas fa-clock"></i> Lun - Vie · 06:00 a 09:00</p>
+                <p class="host-bio">Despierta la ciudad con noticias, buena música y la mejor energía para empezar el día.</p>
+            </div>
+
+            <div class="host-card">
+                <div class="host-avatar">LM</div>
+                <h3>Laura Méndez</h3>
+                <span class="host-role">Mediodía</span>
+                <p class="host-schedule"><i class="fas fa-clock"></i> Lun - Vie · 09:00 a 14:00</p>
+                <p class="host-bio">Salsa, merengue y los éxitos del momento para acompañarte en tu jornada.</p>
+            </div>
+
+            <div class="host-card">
+                <div class="host-avatar">JR</div>
+                <h3>José Ramírez</h3>
+                <span class="host-role">Tarde</span>
+                <p class="host-schedule"><i class="fas fa-clock"></i> Lun - Vie · 14:00 a 20:00</p>
+                <p class="host-bio">Entrevistas, requests y la mejor selección musical para el regreso a casa.</p>
+            </div>
+
+            <div class="host-card">
+                <div class="host-avatar">AP</div>
+                <h3>Ana Pérez</h3>
+                <span class="host-role">Noche</span>
+                <p class="host-schedule"><i class="fas fa-clock"></i> Lun - Vie · 20:00 a 00:00</p>
+                <p class="host-bio">Dedicatorias, música suave y conexión directa con los oyentes de la noche.</p>
+            </div>
+        </div>
+    </section>
+
     <section id="nosotros">
         <h2 class="section-title">Sobre Galy 90.7</h2>
         <div class="about">
             <div class="about-text">
                 <h3>Nuestra Historia</h3>
-                <p>
-                    Galy 90.7 nació con la pasión de conectar a la comunidad a través de la música y la información. 
-                    Desde nuestros inicios hemos sido más que una radio: somos el compañero diario de miles de oyentes.
-                </p>
-                <p>
-                    Transmitimos las 24 horas con una programación variada que incluye los mejores éxitos latinos, 
-                    noticias locales, entrevistas y espacios de interacción con nuestra audiencia.
-                </p>
-                <p>
-                    Nuestro compromiso es seguir creciendo junto a ti, llevando buena vibra y contenido de calidad 
-                    a cada rincón donde nos sintonizan.
-                </p>
+                <p>Galy 90.7 nació con la pasión de conectar a la comunidad a través de la música y la información. Desde nuestros inicios hemos sido más que una radio: somos el compañero diario de miles de oyentes.</p>
+                <p>Transmitimos las 24 horas con una programación variada que incluye los mejores éxitos latinos, noticias locales, entrevistas y espacios de interacción con nuestra audiencia.</p>
+                <p>Nuestro compromiso es seguir creciendo junto a ti, llevando buena vibra y contenido de calidad a cada rincón donde nos sintonizan.</p>
             </div>
             <div class="about-card">
                 <i class="fas fa-broadcast-tower"></i>
-                <h3 style="margin-bottom: 0.8rem;">¿Por qué escucharnos?</h3>
-                <ul style="list-style: none; opacity: 0.9;">
-                    <li style="margin-bottom: 0.6rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> Música actualizada</li>
-                    <li style="margin-bottom: 0.6rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> Noticias locales</li>
-                    <li style="margin-bottom: 0.6rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> Interacción en vivo</li>
-                    <li style="margin-bottom: 0.6rem;"><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> Dedicatorias y saludos</li>
-                    <li><i class="fas fa-check" style="color: var(--accent); margin-right: 8px;"></i> 24/7 al aire</li>
+                <h3>¿Por qué escucharnos?</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Música actualizada</li>
+                    <li><i class="fas fa-check"></i> Noticias locales</li>
+                    <li><i class="fas fa-check"></i> Interacción en vivo</li>
+                    <li><i class="fas fa-check"></i> Dedicatorias y saludos</li>
+                    <li><i class="fas fa-check"></i> 24/7 al aire</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- WHATSAPP -->
     <div class="whatsapp-section" id="whatsapp">
         <h2 class="section-title">Envíanos un mensaje</h2>
-        <p style="max-width: 600px; margin: 0 auto 0.5rem; opacity: 0.9;">
-            ¿Quieres saludar, pedir una canción o contarnos algo? Elige una opción y se abrirá WhatsApp con el mensaje listo.
-        </p>
-        
+        <p class="section-subtitle" style="margin-bottom: 0;">Elige una opción y se abrirá WhatsApp con el mensaje listo.</p>
         <div class="whatsapp-buttons">
-            <!-- Cambia 1234567890 por tu número real (código de país + número) -->
-            <a href="https://wa.me/1234567890?text=¡Hola%20Galy%2090.7!%20Quiero%20enviar%20un%20saludo%20❤️" 
-               class="wa-btn" target="_blank">
+            <a href="https://wa.me/1234567890?text=¡Hola%20Galy%2090.7!%20Quiero%20enviar%20un%20saludo%20❤️" class="wa-btn" target="_blank">
                 <i class="fab fa-whatsapp"></i> Enviar un saludo
             </a>
-
-            <a href="https://wa.me/1234567890?text=¡Hola!%20Quiero%20pedir%20una%20canción%20🎵" 
-               class="wa-btn" target="_blank">
+            <a href="https://wa.me/1234567890?text=¡Hola!%20Quiero%20pedir%20una%20canción%20🎵" class="wa-btn" target="_blank">
                 <i class="fas fa-music"></i> Pedir una canción
             </a>
-
-            <a href="https://wa.me/1234567890?text=Hola%20Galy%2090.7,%20quiero%20dar%20una%20información%20o%20noticia%20📰" 
-               class="wa-btn" target="_blank">
+            <a href="https://wa.me/1234567890?text=Hola%20Galy%2090.7,%20quiero%20dar%20una%20información%20o%20noticia%20📰" class="wa-btn" target="_blank">
                 <i class="fas fa-newspaper"></i> Enviar información
             </a>
-
-            <a href="https://wa.me/1234567890?text=¡Hola!%20Tengo%20una%20consulta%20o%20sugerencia%20para%20la%20radio%20💬" 
-               class="wa-btn" target="_blank">
+            <a href="https://wa.me/1234567890?text=¡Hola!%20Tengo%20una%20consulta%20o%20sugerencia%20para%20la%20radio%20💬" class="wa-btn" target="_blank">
                 <i class="fas fa-comment-dots"></i> Consulta / Sugerencia
             </a>
         </div>
     </div>
 
-    <!-- REDES SOCIALES -->
     <section class="social-section" id="redes">
         <h2 class="section-title">Síguenos en redes</h2>
-        <p style="opacity: 0.85; margin-bottom: 0.5rem;">Mantente conectado con todo lo que pasa en Galy 90.7</p>
-        
+        <p class="section-subtitle">Mantente conectado con todo lo que pasa en Galy 90.7</p>
         <div class="social-grid">
-            <a href="https://facebook.com/" class="social-btn facebook" target="_blank" title="Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://instagram.com/" class="social-btn instagram" target="_blank" title="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://youtube.com/" class="social-btn youtube" target="_blank" title="YouTube">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://tiktok.com/" class="social-btn tiktok" target="_blank" title="TikTok">
-                <i class="fab fa-tiktok"></i>
-            </a>
-            <a href="https://twitter.com/" class="social-btn twitter" target="_blank" title="X / Twitter">
-                <i class="fab fa-x-twitter"></i>
-            </a>
+            <a href="https://facebook.com/" class="social-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/" class="social-btn instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/" class="social-btn youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://tiktok.com/" class="social-btn tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://twitter.com/" class="social-btn twitter" target="_blank"><i class="fab fa-x-twitter"></i></a>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-        <div class="logo">GALY 90.7 <span style="font-size: 0.9rem;">FM</span></div>
-        <p>© 2025 Galy 90.7 FM · Todos los derechos reservados</p>
-        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Hecha con ❤️ para nuestra audiencia</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">GALY 90.7 <span style="font-size: 0.85rem;">FM</span></div>
+                <p>La radio que te acompaña las 24 horas con la mejor música, noticias y conexión con nuestra comunidad.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#player">Escuchar en vivo</a></li>
+                    <li><a href="#programacion">Programación</a></li>
+                    <li><a href="#locutores">Locutores</a></li>
+                    <li><a href="#whatsapp">Enviar saludo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="https://wa.me/1234567890" target="_blank">WhatsApp</a></li>
+                    <li><a href="mailto:contacto@galy907.com">Email</a></li>
+                    <li><a href="#redes">Redes sociales</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Galy 90.7 FM · Todos los derechos reservados</p>
+            <p>Hecha con ❤️ para nuestra audiencia</p>
+        </div>
     </footer>
 
     <script>
-        // Menú móvil
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
+            link.addEventListener('click', () => navLinks.classList.remove('active'));
         });
 
-        // Reproductor de audio
         const audio = document.getElementById('radioStream');
         const playBtn = document.getElementById('playBtn');
         const playIcon = document.getElementById('playIcon');
         const statusText = document.getElementById('statusText');
         const volumeSlider = document.getElementById('volume');
-        const equalizer = document.getElementById('equalizer');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const equalizerBars = document.querySelectorAll('#equalizer span');
 
-        let isPlaying = false;
+        let audioContext = null, analyser = null, source = null, gainNode = null;
+        let isPlaying = false, animationId = null, dataArray = null;
 
-        playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-                playIcon.classList.remove('fa-pause');
-                playIcon.classList.add('fa-play');
-                statusText.textContent = 'Pausado';
-                equalizer.style.opacity = '0.4';
+        function initAudioContext() {
+            if (audioContext) return;
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 64;
+            analyser.smoothingTimeConstant = 0.7;
+            gainNode = audioContext.createGain();
+            gainNode.gain.value = volumeSlider.value;
+            source = audioContext.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+        }
+
+        function drawEqualizer() {
+            if (!analyser || !isPlaying) return;
+            analyser.getByteFrequencyData(dataArray);
+            const step = Math.floor(dataArray.length / equalizerBars.length);
+            equalizerBars.forEach((bar, i) => {
+                const value = dataArray[i * step] || 0;
+                bar.style.height = Math.max(4, (value / 255) * 36) + 'px';
+            });
+            animationId = requestAnimationFrame(drawEqualizer);
+        }
+
+        playBtn.addEventListener('click', async () => {
+            try {
+                if (!audioContext) initAudioContext();
+                if (audioContext.state === 'suspended') await audioContext.resume();
+                if (isPlaying) {
+                    audio.pause();
+                    playIcon.classList.replace('fa-pause', 'fa-play');
+                    playBtn.classList.remove('playing');
+                    statusText.textContent = 'Pausado';
+                    isPlaying = false;
+                    cancelAnimationFrame(animationId);
+                    equalizerBars.forEach(bar => bar.style.height = '6px');
+                } else {
+                    await audio.play();
+                    playIcon.classList.replace('fa-play', 'fa-pause');
+                    playBtn.classList.add('playing');
+                    statusText.textContent = 'En vivo ahora';
+                    isPlaying = true;
+                    drawEqualizer();
+                }
+            } catch (err) {
+                statusText.textContent = 'Error al conectar. Verifica la URL del stream';
+                playIcon.classList.replace('fa-pause', 'fa-play');
+                playBtn.classList.remove('playing');
                 isPlaying = false;
-            } else {
-                audio.play()
-                    .then(() => {
-                        playIcon.classList.remove('fa-play');
-                        playIcon.classList.add('fa-pause');
-                        statusText.textContent = 'En vivo ahora';
-                        equalizer.style.opacity = '1';
-                        isPlaying = true;
-                    })
-                    .catch(err => {
-                        statusText.textContent = 'Error al conectar. Verifica la URL del stream';
-                        console.error(err);
-                    });
             }
         });
 
         volumeSlider.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
+            const value = parseFloat(e.target.value);
+            if (gainNode) gainNode.gain.value = value;
+            else audio.volume = value;
+            volumeIcon.className = value === 0 ? 'fas fa-volume-mute' : value < 0.5 ? 'fas fa-volume-down' : 'fas fa-volume-up';
         });
 
-        // Cuando el audio se detiene por cualquier razón
         audio.addEventListener('pause', () => {
             if (isPlaying) {
-                playIcon.classList.remove('fa-pause');
-                playIcon.classList.add('fa-play');
+                playIcon.classList.replace('fa-pause', 'fa-play');
+                playBtn.classList.remove('playing');
                 statusText.textContent = 'Pausado';
-                equalizer.style.opacity = '0.4';
                 isPlaying = false;
+                cancelAnimationFrame(animationId);
+                equalizerBars.forEach(bar => bar.style.height = '6px');
             }
         });
     </script>
