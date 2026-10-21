@@ -1,6 +1,6 @@
-# 👋 ¡Hola! Soy Kevin Josue Mejia Mejia
+# 👋 ¡Hola! Soy Kevin Mejia
 
-### 💻 Ingeniero en Software | Full Stack Developer | Inteligencia Artificial
+### 💻 Engineer Software | Full Stack Developer | Inteligencia Artificial
 
 <p align="center">
   <a href="https://tm300km.github.io/">
