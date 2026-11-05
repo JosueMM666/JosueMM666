@@ -3,13 +3,13 @@
 ### 💻 Engineer Software | Full Stack Developer | Inteligencia Artificial
 
 <p align="center">
-  <a href="https://tm300km.github.io/">
+  <a href="https://github.com/JosueMM666">
     <img src="https://img.shields.io/badge/Portafolio-Visitar-0A66C2?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Portafolio" />
   </a>
   <a href="https://www.linkedin.com/in/kevin-mejia-1558392aa">
     <img src="https://img.shields.io/badge/LinkedIn-Conectar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
-  <a href="https://github.com/tm300km">
+  <a href="https://github.com/JosueMM666">
     <img src="https://img.shields.io/badge/GitHub-Seguir-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
   </a>
 </p>
